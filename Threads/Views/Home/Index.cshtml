@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<link rel="stylesheet" href="~/css/HomeIndex.css" asp-append-version="true" />
+
+<section class="page-center">
+    <div class="column-left">
+        <div class="main-message">
+            <h1>Welcome to </h1>
+            <div class="AppName">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FeMeI</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Threads</a>
+            </div>
+        </div>
+        <div class="choice-box">
+            <p>Cum dorești să folosești aplicația?</p>
+            @if(SignInManager.IsSignedIn(User))
+            {
+                <div class="butoane">
+                    <!--
+                    <a class="btn rounded-pill" asp-area="" asp-controller="Users" asp-action="Delete" asp-route-id="@UserManager.GetUserId(User)">Șterge Contul</a> -->
+
+                    <button class="btn rounded-pill" onclick="document.getElementById('id01').style.display='block'">Șterge Contul</button>
+
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="btn rounded-pill">Deconectează-te</button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="butoane">
+                    <a class="btn rounded-pill" asp-area="Identity" asp-page="/Account/Register">  Înregistrează-te  </a>
+                    <a class="btn rounded-pill" asp-area="Identity" asp-page="/Account/Login">    Conectează-te    </a>
+                    <a class="btn rounded-pill" asp-area="" asp-controller="Home" asp-action="IncognitoMessage">Folosește fără profil</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="column-right">
+        <img src="~/images/DesignSide/vector.svg" alt="My Happy SVG" width="100%" height="100%" />
+    </div>
+</section>
+
+
+<!-- Delete Button Triggering Modal -->
+
+
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+    <div class="modal-content">
+        <div class="modal-container">
+            <h2>Ștergere definitivă</h2>
+            <p>Ești sigur că vrei să ștergi acest cont?</p>
+
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Anulare</button>
+                <form method="post" class="form-inline" asp-area="" asp-controller="Users" asp-action="Delete" asp-route-id="@UserManager.GetUserId(User)">
+                    <button class="deletebtn" type="submit">Șterge Contul</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var modal = document.getElementById('id01');
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

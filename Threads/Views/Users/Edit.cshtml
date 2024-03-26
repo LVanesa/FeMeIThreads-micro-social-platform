@@ -1,0 +1,170 @@
+﻿@model Threads.Models.ApplicationUser
+@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@Html.Partial("_UserProfilePartial", Model)
+<link href="~/css/EditUser.css" rel="stylesheet" />
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Include the ModelState errors partial view -->
+@Html.Partial("_ModelStateErrorsPartial")
+<form enctype="multipart/form-data" asp-controller="Users" asp-action="Edit" asp-route-id="@UserManager.GetUserId(User)" id="editForm">
+
+    <div class="container-xl px-4 mt-4">
+        <hr class="mt-0 mb-4">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="column">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Fotografie Profil</div>
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+
+
+                            <img class="img-account-profile rounded-circle mb-2" src=@Model.ProfilePicture alt="" width="90" height="90">
+                            <!-- Profile picture help block-->
+                            <div class="small font-italic text-muted mb-4">JPG no PNG no larger than 5 MB</div>
+                            <!-- Profile picture upload button-->
+
+                            <input id="profilePictureInput" class="form-control" type="file" name="ProfilePicture" accept="image/jpeg, image/png" />
+                            
+                        </div>
+                    </div>
+                    <br/>
+                    
+                    <!-- Cover picture card-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Fotografie Copertă</div>
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+                            <img class="img-account-profile rounded-circle mb-2" src=@Model.CoverPicture alt="" width="90" height="90">
+                            <!-- Profile picture help block-->
+                            <div class="small font-italic text-muted mb-4">Ideal picture size: 1600px x 900px</div>
+                            <!-- Profile picture upload button-->
+                            <input id="coverPictureInput" class="form-control" type="file" name="CoverPicture" accept="image/jpeg, image/png" />
+                            <br />
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="card mb-4">
+                    <div class="card-header">Detaliile Contului</div>
+                    <div class="card-body">
+                        @using (Html.BeginForm(actionName: "Edit", controllerName: "Users",
+                        method: FormMethod.Post, routeValues: new { id = @Model.Id }))
+                        {
+                            <!-- Form Group (username)-->
+                            <div class="mb-3">
+                                <i class="bi bi-person"></i>
+                                @Html.Label("UserName", "Username (cum va apărea numele tău pe site)", new { @class = "small mb-1" })
+                                <br />
+                                @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
+                            </div>
+
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (first name)-->
+                                <div class="col-md-6">
+                                    <i class="bi bi-person"></i>
+                                    @Html.Label("FirstName", "Prenume", new { @class = "small mb-1" })
+                                    <br />
+                                    @Html.EditorFor(m => m.FirstName, new { @class = "form-control" })
+                                </div>
+
+                                <!-- Form Group (last name)-->
+                                <div class="col-md-6">
+                                    <i class="bi bi-person"></i>
+                                    @Html.Label("LastName", "Nume", new { @class = "small mb-1" })
+                                    <br />
+                                    @Html.EditorFor(m => m.LastName, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <!-- Form Group (email address)-->
+                            <div class="mb-3">
+                                <i class="bi bi-envelope"></i>
+                                @Html.Label("Email", "Modifică Email", new { @class = "small mb-1" })
+                                <br />
+                                @Html.EditorFor(m => m.Email, new { @class = "form-control", @type = "email" })
+                                <br />
+                            </div>
+
+                            <!-- Form Row-->
+                            
+                            <div class="mb-3">
+                                <i class="bi bi-person"></i>
+                                @Html.Label("Biografie", "Modifică Biografie", new { @class = "small mb-1" })
+                                <br />
+                                @Html.TextAreaFor(m => m.Biografie, new { @class = "form-control", rows = 4 })
+                                <br />
+                            </div>
+                            
+
+                            <div class="mb-3">
+                                <i class="bi bi-person"></i>
+                                @Html.LabelFor(m => m.Visibility, "Alege vizibilitatea Profilului", new { @class = "small mb-1" })
+                                <br />
+                                @Html.DropDownListFor(m => m.Visibility, new List<SelectListItem>
+                            {
+                            new SelectListItem { Text = "Public", Value = "true" },
+                            new SelectListItem { Text = "Privat", Value = "false" }
+                            }, new { @class = "form-control" })
+                                <br />
+                            </div>
+
+
+
+                            <input class="btn buton-submit " type="submit" value="Salvează modificările" form="editForm" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<!-- Delete Button Triggering Modal -->
+<button class="btn buton-delete" onclick="document.getElementById('id01').style.display='block'">Șterge contul</button>
+
+
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+    <div class="modal-content" >
+        <div class="modal-container">
+            <h2>Ștergere definitivă</h2>
+            <p>Ești sigur că vrei să ștergi acest cont?</p>
+
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Anulare</button>
+                <form method="post" action="/Users/Delete/@Model.Id">
+
+                    <button class="deletebtn" type="submit">Ștergere</button>
+
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var modal = document.getElementById('id01');
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

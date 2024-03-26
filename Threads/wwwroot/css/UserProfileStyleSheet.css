@@ -1,0 +1,734 @@
+﻿body {
+    background: #eee;
+}
+
+a{
+    text-decoration:none;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.card {
+    margin-bottom: 35px;
+    box-shadow: 0 10px 20px 0 rgba(26, 44, 57, 0.14);
+    border: none;
+}
+
+.social-profile {
+    color: #fff;
+}
+
+.social-profile a {
+    color: #fff;
+}
+
+.social-profile {
+    position: relative;
+    margin-bottom: 150px;
+}
+
+.social-profile .user-profile {
+    position: absolute;
+    bottom: -75px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    left: 50px;
+}
+
+.social-nav {
+    position: absolute;
+    bottom: 0;
+}
+
+.social-prof {
+    color: #333;
+    text-align: center;
+}
+
+.social-prof .wrapper {
+    width: 70%;
+    margin: auto;
+    margin-top: -100px;
+}
+
+.social-prof img {
+    width: 150px;
+    height: 150px;
+    object-fit:cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 5px solid #fff;
+
+}
+
+
+.social-prof h3 {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.social-prof p {
+    font-size: 16px;
+    font-family:"Segoe UI , Tahoma, Geneva, Verdana, sans-serif";
+}
+
+.social-prof .nav-tabs {
+    border: none;
+}
+
+.card .nav > li {
+    position: relative;
+    display: block;
+    margin:0.4rem;
+}
+
+.card .nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 30px;
+    font-weight: 380;
+    font-size: 12px;
+    color: #292d32;
+    border-radius: 4px;
+}
+
+.card .nav > li > a:focus,
+.card .nav > li > a:hover {
+    text-decoration: none;
+    background-color: #5e6593;
+    color: white;
+    transform: scale(1.1); 
+    transition: transform 0.3s ease-in-out;
+}
+
+.card .s-nav > li > a.active {
+    text-decoration: none;
+    transform: scale(1.1);
+    background-color: #5e6593;
+    color: #fff;
+}
+
+
+
+
+/*Stilizarea postarilor*/
+
+
+.timeline {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative
+}
+
+    .timeline:before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        bottom: 5px;
+        width: 5px;
+        background: #5e6593;
+        left: 20%;
+        margin-left: -2.5px
+    }
+
+.timeline > li {
+    position: relative;
+    min-height: 50px;
+    padding: 20px 0
+}
+
+.timeline .timeline-time {
+    position: absolute;
+    left: 0;
+    width: 18%;
+    text-align: right;
+    top: 30px
+}
+
+.timeline .timeline-time .date,
+.timeline .timeline-time .time {
+    display: block;
+    font-weight: 600
+}
+
+.timeline .timeline-time .date {
+    line-height: 16px;
+    font-size: 12px
+}
+
+    .timeline .timeline-time .time {
+        line-height: 45px;
+        font-size: 15px;
+        font-weight:600;
+        color: #2d353c;
+    }
+
+.timeline .timeline-icon {
+    left: 15%;
+    position: absolute;
+    width: 10%;
+    text-align: center;
+    top: 40px
+}
+
+.timeline .timeline-icon a {
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 20px;
+    background: #9fb7db;
+    line-height: 10px;
+    color: #9fb7db;
+    font-size: 14px;
+    border: 5px solid #292d32;
+    transition: border-color .2s linear
+}
+
+.timeline .timeline-body {
+    margin-left: 23%;
+    margin-right: 17%;
+    background: #fff;
+    position: relative;
+    padding: 20px 25px;
+    border-radius: 6px
+}
+
+.timeline .timeline-body:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border: 10px solid transparent;
+    border-right-color: #fff;
+    left: -20px;
+    top: 20px
+}
+
+.timeline .timeline-body > div + div {
+    margin-top: 15px
+}
+
+.timeline .timeline-body > div + div:last-child {
+    margin-bottom: -20px;
+    padding-bottom: 20px;
+    border-radius: 0 0 6px 6px
+}
+
+.timeline-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #292d32;
+    line-height: 30px
+}
+
+.timeline-header .userimage {
+    float: left;
+    width: 34px;
+    height: 34px;
+    border-radius: 40px;
+    overflow: hidden;
+    margin: -2px 10px -2px 0
+}
+
+.timeline-header .username {
+    font-size: 16px;
+
+    font-weight: 600
+}
+
+.timeline-header .username,
+.timeline-header .username a {
+    color: #2d353c
+}
+
+.timeline img {
+    max-width: 100%;
+    display: block
+}
+
+.timeline-content {
+    letter-spacing: .25px;
+    line-height: 18px;
+    font-size: 13px
+}
+
+.timeline-content:after,
+.timeline-content:before {
+    content: '';
+    display: table;
+    clear: both
+}
+
+.timeline-title {
+    margin-top: 0
+}
+
+.timeline-footer {
+    background: #fff;
+    border-top: 1px solid #e2e7ec;
+    padding-top: 15px
+}
+
+    .timeline-footer a:not(.btn) {
+        color: #292d32;
+    }
+
+.timeline-footer a:not(.btn):focus,
+.timeline-footer a:not(.btn):hover {
+    color: #2d353c
+}
+
+.timeline-likes {
+    color: #6d767f;
+    font-weight: 600;
+    font-size: 12px
+}
+
+.timeline-likes .stats-right {
+    float: right
+}
+
+.timeline-likes .stats-total {
+    display: inline-block;
+    line-height: 20px
+}
+
+.timeline-likes .stats-icon {
+    float: left;
+    margin-right: 5px;
+    font-size: 9px
+}
+
+    .timeline-likes .stats-icon + .stats-icon {
+        margin-left: -2px
+    }
+
+.timeline-likes .stats-text {
+    line-height: 20px
+}
+
+.timeline-likes .stats-text + .stats-text {
+    margin-left: 15px
+}
+
+.timeline-comment-box {
+    background: #f2f3f4;
+    margin-left: -25px;
+    margin-right: -25px;
+    padding: 20px 25px
+}
+
+.timeline-comment-box .user {
+    float: left;
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+    border-radius: 30px
+}
+
+.timeline-comment-box .user img {
+    max-width: 100%;
+    max-height: 100%
+}
+
+.timeline-comment-box .user + .input {
+    margin-left: 44px;
+   
+}
+
+.lead {
+    margin-bottom: 20px;
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+.text-danger, .text-red {
+    color: #ff5b57 !important;
+}
+
+/*stilizarea grupurilor*/
+
+.team-style1 {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin-bottom:20px;
+    border-radius: 10px;
+}
+
+.team-style1 .team-info {
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    border-radius: 5px;
+    transform: translate3d(0px, 0%, 0px);
+    transition: all 800ms ease 0.35s;
+    padding: 25px 30px;
+    box-shadow: 0px 5px 24.25px 0.75px rgba(0,0,0,0.1);
+    background: #9fb7db;
+    color: #fffdfe; position: absolute
+}
+body > div.container-scroll > div > div > main > div:nth-child(7) > div > div > div {
+    width: 380px;
+    height: 400px;
+}
+.team-style1 .team-overlay {
+    left: 15px;
+    right: 15px;
+    opacity: 1;
+    padding: 0 20px;
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    transform: translate3d(0px, -110%, 0px);
+    transition: all 700ms ease 0.35s;
+    box-shadow: 0px 5px 24.25px 0.75px rgba(0,0,0,0.1)
+}
+
+.team-style1:hover .team-overlay {
+    transform: translate3d(0px, 0, 0px);
+    transition-delay: 0.1s;
+    background: #5e6593;
+    border-radius: 5px
+}
+
+.team-style1:hover .team-info {
+    transform: translate3d(0px, 130px, 0px);
+    transition-delay: 0.2s
+}
+
+.team-style1 .social-icon-style1 {
+    border-top: 2px dotted rgba(255,255,255,0.3);
+    margin-top: 15px;
+    padding-top: 20px
+}
+.img-container {
+    width: 480px;
+    background-color: #2a2c5d; 
+    height:480px;
+}
+
+.team-bg-shape img {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    z-index: 0
+}
+
+@media screen and (max-width: 991px) {
+    .team-style1 .team-info {
+        padding: 20px
+    }
+}
+
+.team-style1 .social-icon-style1 {
+    border-top: 2px dotted rgba(255,255,255,0.3);
+    margin-top: 15px;
+    padding-top: 20px;
+}
+
+.social-icon-style1 {
+    margin: auto;
+    list-style-type: none;
+}
+
+
+.social-icon-style1 a,
+.social-icon-style1 button{
+    /*create a button*/
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 0.25rem;
+    transition: 0.5s;
+    text-decoration: none;
+    color: #292d32;
+    background-color: #fff;
+}
+
+.social-icon-style1 a:hover,
+.social-icon-style1 a:hover a:focus,
+.social-icon-style1 button:hover,
+.social-icon-style1 button:hover button:focus{
+    /*create hover effect*/
+    background-color: #292d32;
+    color: white;
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+#profile-post > ul > li > div.timeline-body > div.timeline-header > div > div > span > a {
+    color: #9fb7db;
+    font-size:14px;
+    border: none;
+}
+#profile-post > ul > li > div.timeline-body > div.timeline-header > div > div > span > a:hover {
+    color:#292d32;
+    border: none;
+}
+#profile-post > ul > li > div.timeline-body > div.timeline-header > div > div > span.username > a > small {
+    color: #292d32;
+}
+
+#profile-post > ul > li > div.timeline-body > div.timeline-header > div > div > span:focus {
+    border:none;
+}
+body > div.container-scroll > div > div > main > div:nth-child(7) > div > div > div > div.team-info > span{
+    color:#292d32;
+}
+
+body > div.container-scroll > div > div > main > div:nth-child(7) > div > div {
+    padding: 3px;
+}
+
+.new-post {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin:0 auto;
+    max-width: 700px;
+    box-shadow: 0px 5px 24.25px 0.75px rgba(0,0,0,0.1);
+    margin-bottom: 70px;
+
+}
+
+.userimage img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.content {
+    flex-grow:1;
+}
+
+.new-post span {
+    font-size: 16px;
+    color: #333;
+}
+
+
+
+/*Editarea modalului de stergere*/
+
+/* Add padding and center-align text to the container */
+.modal-container {
+    padding: 16px;
+    text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+    /*display: none;  Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(42, 44, 92, 0.6);
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
+
+/* The Modal Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+    color: rgba(33, 40, 50, 0.125);
+    cursor: pointer;
+}
+
+.note-modal {
+    z-index: 1051 !important; /* Setează un z-index mai mare decât cel implicit */
+}
+
+/* Modal propriu-zis */
+#id01 {
+    z-index: 1051 !important; /* Setează z-index la un nivel superior */
+}
+
+#profile-post > div {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 700px;
+    box-shadow: 0px 5px 24.25px 0.75px rgba(0,0,0,0.1);
+    margin-bottom: 70px;
+}
+
+
+.button {
+    margin-right: 10px; /* Spațiu între butoane, poți ajusta după preferință */
+}
+
+.req-but {
+    border: none;
+    color: black;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+    .req-but:hover {
+        opacity: 0.8;
+    }
+
+    /*
+        /////////////////////////////////////
+    */
+
+
+/*Editarea modalului de stergere*/
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+    button:hover {
+        opacity: 1;
+    }
+
+/* Float cancel and delete buttons and add an equal width */
+.cancelbtn, .deletebtn {
+    float: left;
+    width: 50%;
+}
+
+/* Add a color to the cancel button */
+.cancelbtn {
+    background-color: #ccc;
+    color: black;
+}
+
+/* Add a color to the delete button */
+.deletebtn {
+    background-color: #e56f32;
+}
+
+/* Add padding and center-align text to the container */
+.modal-container {
+    padding: 16px;
+    text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+    /*display: none;  Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(42, 44, 92, 0.6);
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* The Modal Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+    .close:hover,
+    .close:focus {
+        color: rgba(33, 40, 50, 0.125);
+        cursor: pointer;
+    }
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .deletebtn {
+        width: 100%;
+    }
+}
+
+.butq {
+    color: #9fb7db;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    margin-left: 5px;
+    text-align: start;
+}
+
+    .butq:hover {
+        color: #333;
+    }
+
+.inapoi-btn {
+    color: rgba(42, 44, 92, 0.6);
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    text-align: start;
+}

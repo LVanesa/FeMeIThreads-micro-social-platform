@@ -1,0 +1,68 @@
+﻿@model Threads.Models.Post
+@if (@ViewBag.Message != null)
+{
+    <h2 class="alert @ViewBag.Alert">
+        @ViewBag.Message
+    </h2>
+}
+
+@if (Model.GroupId == null)
+{
+    <a class="inapoi-btn" href="/Posts/Index">  <i class="bi bi-box-arrow-left"></i>  Înapoi la postări</a>
+}
+else
+{
+    <a class="inapoi-btn" href="/Groups/Show/@Model.GroupId">  <i class="bi bi-box-arrow-left"></i>  Înapoi la postări</a>
+}
+
+
+<h2 class="text-center mt-5">Editează conținutul postării</h2>
+
+<div class="container mt-5 ">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            @using (Html.BeginForm(actionName: "Edit", controllerName: "Posts", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+            {
+                @Html.TextArea("Content", null, new { @class = "summernote" })
+                <button class="buton-edit" type="submit">Modifică postarea</button>
+                @Html.ValidationMessage("Content", new { @class = "text-danger" });
+
+            }
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .buton-edit {
+        background-color: #5e6593;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px; /* Adjust the margin to your preference */
+    }
+
+        .buton-edit:hover {
+            opacity: 0.8;
+        }
+
+    .inapoi-btn {
+        color: rgba(42, 44, 92, 0.6);
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+        background-color: transparent;
+        margin-left: 10px;
+        text-align: start;
+        margin-bottom: 10px; /* Adjust the margin to your preference */
+    }
+</style>
+
+
+

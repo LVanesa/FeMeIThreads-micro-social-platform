@@ -1,0 +1,113 @@
+﻿<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/css/GroupShow.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>@ViewBag.Title</title>
+
+</head>
+
+<div class="container db-social">
+    <div class="jumbotron jumbotron-fluid">
+        @if(Model.GroupImage != null)
+        {
+            <img src="@Model.GroupImage" alt="Group Image" style="width: 100%; height: 400px; object-fit: cover;">
+        }
+        else
+        {
+            <img src="/images/coverDefault.png" alt="Group Image" style="width: 100%; height: 400px; object-fit: cover;">
+
+        }
+    </div>
+
+    <div class="container-fluid-group">
+        <div class="row justify-content-center">
+            <div class="col-xl-11">
+                <div class="widget head-profile has-shadow">
+                    <div class="widget-body pb-0">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-xl-4 col-md-4 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
+
+                                <div >
+                                    <div class="follow">
+                                        <button type="submit" style="border: none; background: none; padding: 0;">
+                                            <span class="pull-right text-muted">
+                                                <a class ="button-add-group" href="/Groups/NewPost?groupId=@Model.Id">
+                                                    <i class="bi bi-pencil-fill"></i> Adaugă postare
+                                                </a>
+                                            </span>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-md-4 d-flex justify-content-center">
+                                <div class="infos">
+                                    <h2>@Model.GroupName</h2>
+                                    @if (Model.User != null)
+                                    {
+                                        <div class="location">Grup creat de: <a href="/Users/ShowPosts/@Model.User.Id" style="color:#2a2c5f; font-weight:bold; font-style:italic;text-decoration:none">@Model.User.UserName</a></div>
+
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-md-4 d-flex justify-content-lg-end justify-content-md-end justify-content-center">
+                                <div class="follow">
+                                    <form method="post" action="/Groups/RemoveUser/@Model.Id">
+                                        <button type="submit" style="border: none; background: none; padding: 0;">
+                                            <span class="pull-right text-muted">
+                                                <div class="button-add-group">
+                                                    <i class="bi bi-box-arrow-left"></i>  Ieși din grup
+                                                </div>
+                                            </span>
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @if(Model.Description != null)
+                {
+                    <div style="background-color: #f8f9fa; border: 1px solid #d1d3e2; padding: 15px; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                        <span><b>Descrierea Grupului: </b><p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #2a2c5f; font-size: 16px; line-height: 1.5; margin: 0;">@Model.Description</p></span>
+                    </div>
+                }
+                
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<style>
+    .button-add-group {
+        font-size: 1.2 rem;
+        border-radius: 2rem;
+        margin: 0.4rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
+        text-decoration: none;
+        background-color: rgba(94, 101, 146, 1);
+        color: white;
+        outline: none;
+        border: none;
+    }
+
+        .button-add-group:hover {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:active {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:focus {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+</style>

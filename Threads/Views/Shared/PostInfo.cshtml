@@ -1,0 +1,19 @@
+﻿
+<div class="card-body">
+
+
+    <div class="card-text">@Html.Raw(Model.Content)</div>
+
+    <div class="d-flex justify-content-between flex-row mt-5">
+
+       @if(Model.GroupId != null){
+           <div><i class="bi bi-people-fill"></i> @Model.Group.GroupName</div>
+       }
+
+        <div><i class="bi bi-person-circle"></i> @Model.User.UserName</div>
+
+        <div><i class="bi bi-calendar3"></i> @Model.Date</div>
+
+    </div>
+
+</div>

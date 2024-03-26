@@ -1,0 +1,59 @@
+﻿@model Threads.Models.Post
+
+@*
+@using (Html.BeginForm(actionName: "New", controllerName: "Posts", method: FormMethod.Post))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    <h2>@Html.Label("Content", "Scrie o postare...")</h2>
+    <br />
+
+    @Html.TextArea("Content", null, new { @class = "summernote" })
+
+    <br /> <br />
+
+    <button class="button-edit-form" background-color="#5e6593" type="submit">Adaugă postare</button>
+}
+*@
+
+<form method="post" action="/Posts/New">
+
+
+        <h5>@Html.Label("Content", "Scrie o postare...")</h5>
+        <textarea class="summernote" name="Content"></textarea>
+        @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+
+        <br /><br />
+
+    <input class="button-edit-form" background-color="#5e6593" type="submit" value="Adaugă postarea" />
+
+</form>
+
+<style>
+    .button-edit-form {
+        font-size: 1.2 rem;
+        border-radius: 2rem;
+        margin: 0.3rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
+        text-decoration: none;
+        background-color: rgba(94, 101, 146, 1);
+        color: white;
+        outline: none;
+        border: none;
+    }
+
+    .button-edit-form:hover {
+        background-color: rgba(94, 101, 146, 0.8);
+        color: white;
+    }
+
+    .button-edit-form:active {
+        background-color: rgba(94, 101, 146, 0.8);
+        color: white;
+    }
+
+    .button-edit-form:focus {
+        background-color: rgba(94, 101, 146, 0.8);
+        color: white;
+    }
+</style>

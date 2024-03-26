@@ -1,0 +1,84 @@
+﻿<head>
+
+    <link href="~/css/UserProfileStyleSheet.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="container">
+    <div class="row position-relative mt-n1-9">
+        @*Prima data iteram prin grupurile din care face parte utilizatorul pe al carui profil suntem*@
+        
+        @foreach (var group in ViewBag.Groups)
+        {
+            var ok = false;
+
+            <div class="col-md-6 col-lg-4 mt-1-9">
+                <div class="team-style1 text-center">
+                    <div class="img-container" width="480px" height="480px">
+                        @*am renuntat la imagine din motive estetice*@
+                    </div>
+
+                    <div class="team-info">
+                        <h2 class=" mb-1 h4">@group.GroupName</h2>
+                        @if (group.User != null)
+                        {
+                            <span class="font-weight-600">creat de @group.User.UserName</span>
+
+                        }
+                    </div>
+                    <div class="team-overlay">
+                        <div class="d-table h-100 w-100">
+                            <div class="d-table-cell align-middle">
+
+
+                                <h3><a href="#" class="text-white"> @group.GroupName</a></h3>
+                                <p class="text-white mb-0">@group.Description</p>
+
+                                <div class="social-icon-style1">
+
+                                    @*Aici verific daca utilizatorul curent este parte din grup, daca da ii afisez buton de vizualizare grup, daca nu ii afisez buton de join */
+                                iteram prin utilizatorii din grup si verificam daca utilizatorul curent este printre ei*@
+
+                                    @*setez o variabila ok ca sa vad daca userul curent face parte dintre utilizatorii grupului*@
+
+                                    @if(SignInManager.IsSignedIn(User))
+                                    {
+                                        @foreach (var user in group.GroupUsers)
+                                        {
+
+                                            @if (ViewBag.UserCurent.ToString() == user.UserId.ToString() || ViewBag.EsteAdmin == true)
+                                            {
+                                                @*daca da, setez ok pe true*@
+                                                ok = true;
+
+                                            }
+                                        }
+                                        @if (ok)
+                                        {
+                                            <a class="buton" href="/Groups/Show/@group.Id">Vezi grupul</a>
+                                            ok = false;
+                                        }
+                                        else
+                                        {
+                                            <form method="post" action="/Groups/AddUser/@group.Id">
+                                                <button class="buton" style="background-color:#e56f32;color:white" type="submit">Alătură-te grupului</button>
+                                            </form>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+</div>

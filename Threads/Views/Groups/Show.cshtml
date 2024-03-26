@@ -1,0 +1,76 @@
+﻿@model Threads.Models.Group
+
+@Html.Partial("GroupShow")
+
+@if(ViewBag.Message != null)
+{
+    <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        @if (@Model.UserId == ViewBag.UserCurent)
+        {
+            <button type="submit" style="border: none; background: none; padding: 0;" >
+                <span class="pull-right text-muted">
+                    <a class="button-add-group" href="/Groups/Edit/@Model.Id">
+                        <i class="bi bi-pencil-fill"></i> Editeaza grup
+                    </a>
+                </span>
+            </button>
+
+        }
+    </div>
+    <div class="col-md-6 text-md-end">
+        @if (@Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+        {
+            <form method="post" action="/Groups/Delete/@Model.Id">
+                <button class="btn btn-danger" type="submit" style="border: none; background: none; padding: 0;">
+                    <span class="pull-right text-muted">
+                        <div class="button-add-group">
+                            <i class="bi bi-trash3-fill"></i> Șterge grup
+                        </div>
+                    </span>
+                </button>
+            </form>
+        }
+    </div>
+   
+</div>
+@if (Model.Posts.Count > 0)
+{
+    @Html.Partial("GroupPost")
+}
+else
+{
+    <h2 class="alert-warning p-3 rounded-3 text-center mb-5">Nu există încă postări în acest grup.</h2>
+}
+
+<style>
+    .button-add-group {
+        font-size: 1.2 rem;
+        border-radius: 2rem;
+        margin: 0.4rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
+        text-decoration: none;
+        background-color: rgba(94, 101, 146, 1);
+        color: white;
+        outline: none;
+        border: none;
+    }
+
+        .button-add-group:hover {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:active {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:focus {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+</style>

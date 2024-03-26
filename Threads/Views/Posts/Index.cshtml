@@ -1,0 +1,152 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+@model Threads.Models.Post
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/css/UserProfileStyleSheet.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+</head>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<br />
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+
+
+
+<div class="profile-content">
+    <!-- begin tab-content -->
+    <div class="tab-content p-0">
+        <!-- begin #profile-post tab -->
+
+        @*Afisez formularul de adaugare postare doar daca userul este logat*@
+       
+        <div class="tab-pane fade active show" id="profile-post">
+            @if (ViewBag.Message != null)
+            {
+                <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+            }
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="d-flex align-items-center new-post" onclick="loadNewPostForm()">
+                    <span class="userimage">
+                        <img src="@user.ProfilePicture" alt="" style="object-fit:cover">
+                    </span>
+                    <div class="content d-flex justify-content-between align-items-center w-100">
+                        <span> Creeaza o postare... </span>
+                        <span class="ml-2"><i class="bi bi-pencil-square"></i></span>
+                    </div>
+
+                </div>
+            }
+
+            <!-- begin timeline -->
+            @if (true) @* +++ de varificat mai incolo daca e privat dar sunt prieteni*@
+            {
+                <ul class="timeline">
+
+
+                    @foreach (var post in ViewBag.Posts)
+                    {
+                        
+                        if(post.GroupId == null)
+                        {
+                            <li>
+                                <!-- begin timeline-time -->
+                                <div class="timeline-time">
+                                    <span class="time"><small>@post.Date</small></span>
+                                </div>
+                                <!-- end timeline-time -->
+                                <!-- begin timeline-icon -->
+                                <div class="timeline-icon">
+                                    <a href="javascript::;">&nbsp;</a>
+                                </div>
+                                <!-- end timeline-icon -->
+                                <!-- begin timeline-body -->
+                                <div class="timeline-body">
+                                    <div class="timeline-header">
+                                        <div class=".flex-column-reverse">
+                                            <div>
+                                                <span class="userimage"><img src=@post.User.ProfilePicture alt="" style="object-fit:cover"></span>
+                                                <span class="username"><a href="/Users/ShowPosts/@post.UserId"><small>@post.User.UserName</small></a> </span>
+
+                                                <span class="pull-right text-muted"><a class="btn-sm mb-2" href="/Posts/Show/@post.Id"><i class="bi bi-eye-fill"></i> Vezi</a></span>
+
+                                                @if (post.UserId == ViewBag.UserCurent)
+                                                {
+                                                    <span class="pull-right text-muted" style="margin-left: 5px"><a class="btn-sm mb-2" href="/Posts/Edit/@post.Id"><i class="bi bi-pencil-fill"></i> Editează </a></span>
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="timeline-content">
+                                        <p>
+                                            @Html.Raw(@post.Content)
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </li>
+                        }
+                        
+                    }
+                </ul>
+            }
+            else
+            {
+                <h2 class="alert-danger p-3 rounded-3 text-center mb-5">This user is private</h2>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+    <div class="modal-content">
+        <div class="modal-container">
+           
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function loadNewPostForm() {
+        $.get('/Posts/New', function (data) {
+            $('#id01 .modal-container').html(data);
+            document.getElementById('id01').style.display = 'block';
+
+            // Inițializați Summernote după încărcarea conținutului
+            $('.summernote').summernote({
+            });
+        });
+    }
+    var modal = document.getElementById('id01');
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>

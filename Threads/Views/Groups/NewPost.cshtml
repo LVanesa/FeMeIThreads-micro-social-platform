@@ -1,0 +1,57 @@
+﻿@model Threads.Models.Group
+
+@{
+    ViewBag.Title = "Adaugă o nouă postare în grup";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="card">
+
+    <form method="post" action="/Groups/Show/@Model.Id">
+
+        <div class="card-body">
+
+            <input type="hidden" name="GroupId" value="@Model.Id" />
+            <h5>@Html.Label("Content", "Scrie o postare...")</h5>
+            <textarea class="summernote" name="Content"></textarea>
+            @Html.ValidationMessage("Content", null, new { @class = "text-danger"})
+
+            <br /><br />
+
+            <input class="button-add-group" type="submit" value="Adaugă postarea" />
+
+        </div>
+
+    </form>
+
+</div>
+
+<style>
+    .button-add-group {
+        font-size: 1.2 rem;
+        border-radius: 2rem;
+        margin: 0.4rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
+        text-decoration: none;
+        background-color: rgba(94, 101, 146, 1);
+        color: white;
+        outline: none;
+        border: none;
+    }
+
+        .button-add-group:hover {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:active {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:focus {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+</style>

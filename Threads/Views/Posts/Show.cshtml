@@ -1,0 +1,245 @@
+﻿@model Threads.Models.Post
+
+@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/css/PostsShow.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+</head> 
+
+
+@if (ViewBag.Message != null)
+{
+    <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+
+}
+@*Adaugare buton de redirectionare inapoi la postari*@
+@*Daca grupul este null*@
+@if(Model.GroupId == null)
+{
+    <a class="inapoi-btn" href="/Posts/Index">  <i class="bi bi-box-arrow-left"></i>  Înapoi la postări</a>
+}
+else
+{
+    <a class="inapoi-btn" href="/Groups/Show/@Model.GroupId">  <i class="bi bi-box-arrow-left"></i>  Înapoi la postări</a>
+}
+
+<div class="container bootstrap snippets bootdey">
+    <div class="panel panel-white post panel-shadow">
+            <div class="post-heading">
+                <div class="pull-left image">
+                <img src="@Model.User.ProfilePicture" style="object-fit:cover;" class=" img-circle avatar" alt="user profile image">
+                </div>
+                <div>
+                    <div class="pull-left meta">
+                        <div class="title h6">
+                            <a href="/Users/ShowPosts/@Model.UserId"><b>@Model.User.UserName</b></a>
+                            a făcut o postare.
+                        </div>
+                        <p class="text-muted time">@Model.Date</p>
+                    </div>
+                
+                    @if (@Model.UserId == ViewBag.UserCurent)
+                    {
+                        <a id="butq" class="pull-right btn-sm mb-2" href="/Posts/Edit/@Model.Id"><i class="bi bi-pencil-fill"></i> Editează </a>
+                    }
+                    @if (@Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+                    {
+                    <a id="butq" class="pull-right btn-sm mb-2" onclick="document.getElementById('id02').style.display='block'" href="#"><i class="bi bi-trash"></i> Șterge </a>
+
+                    }
+                </div>
+               
+            </div>
+            <div class="post-description">
+                <p>@Html.Raw(Model.Content)</p>
+                <div class="stats">
+                    @if(Model.GroupId != null)
+                    {
+                        <a href="/Groups/Show/@Model.GroupId" class="btn btn-default stat-item">
+                        <i class="bi bi-people-fill"></i> <b>@Model.Group.GroupName</b>
+                    </a>
+                    }
+                </div>
+            </div>
+
+
+            <div class="post-footer">
+                
+                    @* Afisarea formularului in care se poate adauga un comentariu *@
+                    @*Afisam formularul doar daca userul este logat *@
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                        <form method="post" action="/Posts/Show/@Model.Id">
+                            <div class="input-group">
+                                <input type="hidden" name="PostId" value="@Model.Id">
+                                <input class="form-control" name="Content" placeholder="Scrie un comentariu..." type="text">
+                                <span class="input-group-addon">
+                                    <button type="submit" style="height:100%; margin-top:0; background-color:#5e6593;color:white"><i class="fa fa-edit"></i> Adaugă comentariul</button>
+                                </span>
+                            </div>
+                            @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+
+                        </form>
+                    }
+               
+                @foreach (var comm in Model.Comments)
+                {
+                    <ul class="comments-list">
+                    <li class="comment">
+                        <a class="pull-left" href="#">
+                            <img class="avatar" src="@comm.User.ProfilePicture" style="object-fit:cover; border-radius:50%" alt="avatar">
+                        </a>
+                        <div class="comment-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="comment-heading">
+                                        <h4 class="user">@comm.User.UserName</h4>
+                                        <h5 class="time">@comm.Date</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-md-end">
+                                    @if (comm.UserId == ViewBag.UserCurent)
+                                    {
+                                        <div class="d-flex justify-content-end">
+                                            <form method="post" action="/Comments/Delete/@comm.Id">
+                                                <button type="submit" class="butq" style="padding: 0; line-height: 1; font-size:15px">
+                                                    <i class="bi bi-trash"></i>Șterge
+                                                </button>
+                                            </form>
+                                            <a class="butq btn-sm mb-2 edit-comment-btn" href="#" data-comment-id="@comm.Id">
+                                                <i class="bi bi-pencil-fill"></i> Editează
+                                            </a>
+                                        </div>
+                                    }
+                                    @if (ViewBag.EsteAdmin && comm.UserId != ViewBag.UserCurent)
+                                    {
+                                        <div class="d-flex justify-content-end">
+                                            <form method="post" action="/Comments/Delete/@comm.Id">
+                                                <button type="submit" class="butq" style="padding: 0; line-height: 1; font-size:15px">
+                                                    <i class="bi bi-trash"></i>Șterge
+                                                </button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <p class="comment-content" id="commentContent_@comm.Id">@comm.Content</p>
+                            <div class="edit-comment-section">
+                                <!-- Add a form for editing (initially hidden) -->
+                                <form class="edit-comment-form" data-comment-id="@comm.Id" style="display: none;">
+                                    <textarea class="form-control" name="editedContent">@comm.Content</textarea>
+                                    <button type="button" class="save-comment-btn" style="height:100%; margin-top:2px; background-color:#5e6593;color:white">Salvare</button>
+                                    <button type="button" class="cancel-edit-btn" style="height:100%; margin-top:2px; background-color:#e56f32;color:white">Anulare</button>
+                                    <span class="error-message" style="color: red;"></span>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+</div>
+
+
+
+<div id="id02" class="modal">
+    <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+    <div class="modal-content">
+        <div class="modal-container">
+            <h2>Ștergere definitivă</h2>
+            <p>Ești sigur că vrei să ștergi această postare?</p>
+
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Anulare</button>
+                <form method="post" action="/Posts/Delete/@Model.Id">
+
+                    <button class="deletebtn" type="submit">Ștergere</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var modal1 = document.getElementById('id02');
+
+    window.onclick = function (event) {
+        if (event.target == modal1) {
+            modal1.style.display = "none";
+        }
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".edit-comment-btn").click(function () {
+            var commentId = $(this).data("comment-id");
+            var editCommentForm = $(".edit-comment-form[data-comment-id='" + commentId + "']");
+            editCommentForm.show();
+            $("#commentContent_" + commentId).hide();
+        });
+
+        $(".save-comment-btn").click(function () {
+            var commentId = $(this).closest(".edit-comment-form").data("comment-id");
+            var editedContent = $(this).siblings("textarea[name='editedContent']").val();
+            var errorMessage = $(this).siblings(".error-message");
+
+            if (editedContent.trim() === "") {
+                errorMessage.text("Conținutul comentariului nu poate fi gol.");
+
+                // Ascunde mesajul de eroare după 5 secunde cu efect de fading
+                setTimeout(function () {
+                    errorMessage.fadeOut(500);
+                }, 5000);
+
+                return;
+            }
+
+            // Dacă conținutul nu este gol, elimină mesajul de eroare și continuă cu trimiterea AJAX a datelor către server
+            errorMessage.text("");
+
+            $.ajax({
+                type: "POST",
+                url: "/Comments/Edit/" + commentId,
+                data: { content: editedContent },
+                success: function (data) {
+                    // Update the comment content and hide the edit form
+                    $("#commentContent_" + commentId).text(editedContent).show();
+                    $(".edit-comment-form[data-comment-id='" + commentId + "']").hide();
+                },
+                error: function (error) {
+                    console.log("Error updating comment:", error);
+                }
+            });
+        });
+
+        // Adaugă funcționalitatea pentru butonul de anulare
+        $(".cancel-edit-btn").click(function () {
+            var commentId = $(this).closest(".edit-comment-form").data("comment-id");
+            $(".edit-comment-form[data-comment-id='" + commentId + "']").hide();
+            $("#commentContent_" + commentId).show();
+        });
+    });
+</script>

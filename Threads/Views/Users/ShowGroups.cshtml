@@ -1,0 +1,19 @@
+﻿@model Threads.Models.ApplicationUser
+
+
+@Html.Partial("_UserProfilePartial", Model)
+@Html.Partial("GroupIndex")
+
+@if(ViewBag.Message != null)
+{
+    if(ViewBag.UserCurent == Model.Id)
+    {
+        <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">Nu faci parte din niciun grup.</h2>
+
+    }
+    else
+    {
+        <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+
+    }
+}

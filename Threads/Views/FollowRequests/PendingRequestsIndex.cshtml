@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+@model List<FollowRequest>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<link href="~/css/UsersIndex.css" rel="stylesheet" />
+
+<br />
+<br />
+
+@if (ViewBag.Message != null)
+{
+    <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+}
+
+@if (ViewBag.Info != null)
+{
+    <h2 class="alert-warning p-3 rounded-3 text-center mb-5">@ViewBag.Info</h2>
+}
+
+
+<div class="container">
+   
+    @foreach (var request in Model)
+    {
+        bool ok = false;
+
+        <div class="member-entry align-items-center">
+            <a href="/Users/ShowPosts/@request.Sender.Id" class="member-img">
+                <img src="@request.Sender.ProfilePicture" class="img-rounded">
+            </a>
+            <div class="member-details col">
+                <a href="/Users/ShowPosts/@request.Sender.Id">@request.Sender.UserName</a>
+                <div class="extra-info-list">
+                    @if (request.Sender.FirstName != null)
+                    {
+                        <div class="col-sm-4">
+                            <span>
+                                <i class="bi bi-person-vcard"></i>
+                                Prenume: <a href="#">@request.Sender.FirstName</a>
+                            </span>
+                        </div>
+                    }
+
+                    <div class="clear"></div>
+                    @if (request.Sender.LastName != null)
+                    {
+                        <div class="col-sm-4">
+                            <span>
+                                <i class="bi bi-person-vcard"></i>
+                                Nume: <a href="#">@request.Sender.LastName</a>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="button-container col">
+                <form method="post" action="/Users/AcceptRequest/@request.Sender.Id">
+                    <button class="button button req-but purple" style="background-color:#5e6593;color:#fff" type="submit">Acceptă Cererea</button>
+                </form>
+                <form method="post" action="/Users/DeclineRequest/@request.Sender.Id">
+                    <button class="button button req-but red" style="background-color:#e56f32; color:#fff" type="submit">Respinge Cererea</button>
+                </form>
+            </div>
+        </div>
+    }
+
+</div>

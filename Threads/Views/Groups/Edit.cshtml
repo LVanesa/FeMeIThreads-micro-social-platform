@@ -1,0 +1,54 @@
+﻿@model Threads.Models.Group
+@{
+    ViewBag.Title = "Editare grup";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("Edit", "Groups", FormMethod.Post, new { enctype = "multipart/form-data", id = Model.Id }))
+
+{
+    <h5>@Html.Label("GroupName", "Denumire grup")</h5>
+    @Html.TextBox("GroupName", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.GroupName, null, new { @class = "text-danger" })
+
+    <br />
+    <h5>@Html.Label("Description", "Adaugă o descriere grupului")</h5>
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+
+    <br />
+    <h5>@Html.Label("GroupImage", "Schimbă coperta grupului")</h5>
+    <input class="form-control" type="file" name="GroupImage" />
+    <br />
+    <input class="button-add-group" type="submit" value="Modifică grupul" />
+}
+
+<style>
+    .button-add-group {
+        font-size: 1.2 rem;
+        border-radius: 2rem;
+        margin: 0.4rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
+        text-decoration: none;
+        background-color: rgba(94, 101, 146, 1);
+        color: white;
+        outline: none;
+        border: none;
+    }
+
+        .button-add-group:hover {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:active {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+
+        .button-add-group:focus {
+            background-color: rgba(94, 101, 146, 0.8);
+            color: white;
+        }
+</style>

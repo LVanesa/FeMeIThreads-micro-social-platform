@@ -1,0 +1,53 @@
+﻿@page
+@model LoginModel
+
+<link rel="stylesheet" href="~/css/LogIn.css" asp-append-version="true" />
+
+<div class="page-center">
+    <div class="column-left">
+            <form id="account" method="post">
+                <h2>Conectează-te folosind un cont existent.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <label asp-for="Input.Password" class="form-label">Parolă</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />Ține-mă minte!
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="reg btn rounded-pill">Conectează-te</button>
+                </div>
+                <div class="verif">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Ți-ai uitat parola?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Înregistrează-te drept un nou utilizator</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Retrimite email-ul de confirmare</a>
+                    </p>
+                </div>
+            </form>
+
+    </div>
+    <div class="column-right">
+        <img src="~/images/DesignSide/log.svg" alt="My Happy SVG" width="100%" height="100%" />
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

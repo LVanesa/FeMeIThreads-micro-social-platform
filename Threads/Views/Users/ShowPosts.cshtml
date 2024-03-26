@@ -1,0 +1,161 @@
+﻿@model Threads.Models.ApplicationUser
+
+@Html.Partial("_UserProfilePartial", Model)
+ 
+@*Afisam o alerta cu mesajele de validare*@
+
+@if(ViewBag.Message != null)
+{
+    <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+}
+
+<div class="profile-content">
+    <!-- begin tab-content -->
+    <div class="tab-content p-0">
+        <!-- begin #profile-post tab -->
+        <div class="tab-pane fade active show" id="profile-post">
+            <!-- begin timeline -->
+            @if (Model.Id == ViewBag.UserCurent || ViewBag.EsteAdmin == true || Model.Visibility ?? true || Model.Visibility == true)
+            {
+                @* +++ de varificat mai incolo daca e privat dar sunt prieteni*@
+
+                @*Prima data verific daca usersul curent are postari in profil, daca are le afisez, daca nu afisez un mesaj specific.*@
+
+                @if (ViewBag.posts.Count==0 && Model.Id != @ViewBag.UserCurent)
+                {
+                    <h2 class="alert-warning p-3 rounded-3 text-center mb-5">Acest utilizator nu are postări.</h2>
+                }
+
+                else if (ViewBag.posts.Count==0 && Model.Id == @ViewBag.UserCurent)
+                {
+                    <h2 class="alert-warning p-3 rounded-3 text-center mb-5">Nu ai încă nicio postare.</h2>
+                }
+
+                else if (ViewBag.posts.Count>0)
+                {
+                    <ul class="timeline">
+
+
+                        @foreach (var post in ViewBag.posts)
+                        {
+                            @if (post.GroupId == null)
+                            {
+
+
+
+                                <li>
+                                    <!-- begin timeline-time -->
+                                    <div class="timeline-time">
+                                        <span class="time"><small>@post.Date</small></span>
+                                    </div>
+                                    <!-- end timeline-time -->
+                                    <!-- begin timeline-icon -->
+                                    <div class="timeline-icon">
+                                        <a href="javascript:;">&nbsp;</a>
+                                    </div>
+                                    <!-- end timeline-icon -->
+                                    <!-- begin timeline-body -->
+                                    <div class="timeline-body">
+                                        <div class="timeline-header">
+                                            <div class=".flex-column-reverse">
+                                                <div>
+                                                    <span class="userimage"><img src=@Model.ProfilePicture alt="" style="object-fit:cover"></span>
+                                                    <span class="username"><a href="javascript:;"><small>@Model.UserName</small></a> </span>
+                                                    @if (post.UserId == ViewBag.UserCurent)
+                                                    {
+                                                        <span class="pull-right text-muted"><a class=" btn-sm  mb-2" href="/Posts/Edit/@post.Id"><i class="bi bi-pencil-fill"></i> Editează </a></span>
+
+                                                        <span class="pull-right text-muted"><a class="btn-sm mb-2" href="/Posts/Show/@post.Id"><i class="bi bi-eye-fill"></i> Vezi </a></span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="pull-right text-muted"><a class="btn-sm mb-2" href="/Posts/Show/@post.Id"><i class="bi bi-eye-fill"></i> Vezi </a></span>
+                                                    }
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <p>
+                                                @Html.Raw(@post.Content)
+                                            </p>
+                                        </div>
+                                    </div>  
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+            }
+            else
+            {
+
+                if (ViewBag.UserCurent != Model.Id && Model.Visibility == false && ViewBag.Status == "accepted")
+                {
+                    if (Model.Posts.Count() > 0)
+                    {
+                        <ul class="timeline">
+
+
+                            @foreach (var post in Model.Posts)
+                            {
+                                @if (post.GroupId == null)
+                                {
+
+
+
+                                    <li>
+                                        <!-- begin timeline-time -->
+                                        <div class="timeline-time">
+                                            <span class="time"><small>@post.Date</small></span>
+                                        </div>
+                                        <!-- end timeline-time -->
+                                        <!-- begin timeline-icon -->
+                                        <div class="timeline-icon">
+                                            <a href="javascript:;">&nbsp;</a>
+                                        </div>
+                                        <!-- end timeline-icon -->
+                                        <!-- begin timeline-body -->
+                                        <div class="timeline-body">
+                                            <div class="timeline-header">
+                                                <div class=".flex-column-reverse">
+                                                    <div>
+                                                        <span class="userimage"><img src=@Model.ProfilePicture alt=""></span>
+                                                        <span class="username"><a href="javascript:;"><small>@Model.UserName</small></a> </span>
+                                                        @if (post.UserId == ViewBag.UserCurent)
+                                                        {
+                                                            <span class="pull-right text-muted"><a class=" btn-sm  mb-2" href="/Posts/Edit/@post.Id"><i class="bi bi-pencil-fill"></i> Editează </a></span>
+
+                                                            <span class="pull-right text-muted"><a class="btn-sm mb-2" href="/Posts/Show/@post.Id"><i class="bi bi-eye-fill"></i> Vezi </a></span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="pull-right text-muted"><a class="btn-sm mb-2" href="/Posts/Show/@post.Id"><i class="bi bi-eye-fill"></i> Vezi </a></span>
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <p>
+                                                    @Html.Raw(@post.Content)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    }
+                }
+                else
+                {
+                    <h2 class="alert-danger p-3 rounded-3 text-center mb-5">Acest utilizator are contul privat.</h2>
+                }
+            }
+            
+        </div>
+    </div>
+</div>

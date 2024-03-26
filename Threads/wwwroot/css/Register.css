@@ -1,0 +1,72 @@
+﻿.page-center {
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    height: 80vh;
+}
+
+.column-left {
+    grid-column: 1;
+    align-self: center;
+    white-space: nowrap;
+    padding: 0 2rem 0 2rem;
+}
+
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.reg {
+    
+    font-size: 1.2 rem;
+    margin-top: 1rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    text-decoration: none;
+    background-color: rgba(94, 101, 146, 1);
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.reg:hover {
+    background-color: rgba(94, 101, 146, 0.8);
+    color: white;
+}
+
+.reg:active {
+    background-color: rgba(94, 101, 146, 0.8);
+    color: white;
+}
+
+.reg:focus {
+    background-color: rgba(94, 101, 146, 0.8);
+    color: white;
+}
+
+.column-right {
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+@media (max-width: 1000px) {
+
+    .page-center {
+        display: flex;
+        flex-direction: column;
+        justify-content:space-evenly;
+        align-items: center;
+    }
+
+    .column-left{
+        align-self: center;
+    }
+    .column-right{
+        align-self: center;
+    }
+}
+
+

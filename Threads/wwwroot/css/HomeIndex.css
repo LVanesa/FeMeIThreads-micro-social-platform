@@ -1,0 +1,232 @@
+﻿.page-center {
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    height: 80vh;
+}
+
+.column-left {
+    grid-column: 1;
+    align-self: center;
+    white-space: nowrap;
+}
+
+.main-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-content: space-around;
+    /*white-space: nowrap;*/
+}
+
+    .main-message h1 {
+        font-size: 3rem;
+        font-weight: lighter;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-right:1rem;
+    }
+
+    .main-message .AppName .navbar-brand {
+        font-size: 2.7rem;
+        color: black;
+        -webkit-text-decoration: inherit;
+        text-decoration: inherit;
+    }
+
+.choice-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.butoane {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.choice-box p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 1rem;
+}
+
+.choice-box a {
+    font-size: 1.2 rem;
+    margin: 0.3rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    text-decoration: none;
+    background-color: rgba(94, 101, 146, 1);
+    color: white;
+    outline: none;
+    border: none;
+}
+
+
+
+    .choice-box a:hover {
+        background-color: rgba(94, 101, 146, 0.8);
+        color: white;
+    }
+
+    .choice-box a:active {
+        background-color: rgba(94, 101, 146, 0.8);
+        color: white;
+    }
+
+    .choice-box a:focus {
+        background-color: rgba(94, 101, 146, 0.8);
+        color: white;
+    }
+
+.choice-box button {
+    font-size: 1.2 rem;
+    margin: 0.3rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    text-decoration: none;
+    background-color: rgba(94, 101, 146, 1);
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.choice-box button:hover {
+    background-color: rgba(94, 101, 146, 0.8);
+    color: white;
+}
+
+.choice-box button:active {
+    background-color: rgba(94, 101, 146, 0.8);
+    color: white;
+}
+
+.choice-box button:focus {
+    background-color: rgba(94, 101, 146, 0.8);
+    color: white;
+}
+
+.column-right {
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+
+
+@media (max-width: 1000px) {
+    .page-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}
+/*Editarea modalului de stergere*/
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+    button:hover {
+        opacity: 1;
+    }
+
+/* Float cancel and delete buttons and add an equal width */
+.cancelbtn, .deletebtn {
+    float: left;
+    width: 50%;
+}
+
+/* Add a color to the cancel button */
+.cancelbtn {
+    background-color: #ccc;
+    color: black;
+}
+
+/* Add a color to the delete button */
+.deletebtn {
+    background-color: #e56f32;
+}
+
+/* Add padding and center-align text to the container */
+.modal-container {
+    padding: 16px;
+    text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+    /*display: none;  Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(42, 44, 92, 0.6);
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* The Modal Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+    .close:hover,
+    .close:focus {
+        color: rgba(33, 40, 50, 0.125);
+        cursor: pointer;
+    }
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .deletebtn {
+        width: 100%;
+    }
+}
+
+body > div.container-scroll > div > div > main > section > div.column-left > div.choice-box > div > button {
+    background-color: #e56f32;
+    color: #fff;
+}
+body > div.container-scroll > div > div > main > section > div.column-left > div.choice-box > div > button:hover {
+    background-color: rgba(229, 111, 50, 0.8);
+}

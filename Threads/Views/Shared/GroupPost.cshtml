@@ -1,0 +1,127 @@
+﻿<head>
+    <link href="~/css/UserProfileStyleSheet.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>@ViewBag.Title</title>
+</head>
+
+
+<div class="profile-content">
+    <!-- begin tab-content -->
+    <div class="tab-content p-0">
+        <!-- begin #profile-post tab -->
+        <div class="tab-pane fade active show" id="profile-post">
+            <!-- begin timeline -->
+
+            <ul class="timeline">
+
+                @foreach (var post in Model.Posts)
+                {
+                    <li>
+                        <!-- begin timeline-time -->
+                        <div class="timeline-time">
+                            <span class="time"><small>@post.Date</small></span>
+                        </div>
+                        <!-- end timeline-time -->
+                        <!-- begin timeline-icon -->
+                        <div class="timeline-icon">
+                            <a href="javascript:;">&nbsp;</a>
+                        </div>
+                        <!-- end timeline-icon -->
+                        <!-- begin timeline-body -->
+                        <div class="timeline-body">
+                            <div class="timeline-header">
+                                <div class=".flex-column-reverse">
+                                    <div>
+                                        <span class="userimage"><img src=@post.User.ProfilePicture alt="" style="object-fit:cover"></span>
+                                        <span class="username"><a href="/Users/ShowPosts/@post.User.Id"><small>@post.User.UserName</small></a> </span>
+                                        @if (post.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+                                        {
+                                            
+
+                                            @*<span class="pull-right text-muted"><a class="btn-sm mb-2" href="/Posts/Show/@post.Id"><i class="bi bi-eye-fill"></i> Vezi </a></span>*@
+
+                                            <span class="pull-right text-muted"> <a onclick="document.getElementById('id01').style.display='block'" href="#"><i class="bi bi-trash"></i> Șterge </a></span>
+                                            <div id="id01" class="modal">
+                                                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+                                                <div class="modal-content">
+                                                    <div class="modal-container">
+                                                        <h2>Ștergere definitivă</h2>
+                                                        <p>Ești sigur că vrei să ștergi această postare?</p>
+
+                                                        <div class="clearfix">
+                                                            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Anulare</button>
+                                                            <form method="post" action="/Posts/Delete/@post.Id">
+
+                                                                <button class="deletebtn" type="submit">Ștergere</button>
+
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+
+                                        }
+                                        @if (post.UserId == ViewBag.UserCurent)
+                                        {
+                                            <span class="pull-right text-muted"><a class=" btn-sm  mb-2" href="/Posts/Edit/@post.Id"><i class="bi bi-pencil-fill"></i> Editează </a></span>
+                                        }
+                                        @*else
+                                        {
+                                            <span class="pull-right text-muted"><a class="btn-sm mb-2" href="/Posts/Show/@post.Id"><i class="bi bi-eye-fill"></i> Vezi </a></span>
+                                        }*@
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="timeline-content">
+                                <p>
+                                    @Html.Raw(@post.Content)
+                                </p>
+                            </div>
+                            <!--
+                                <div class="timeline-comment-box">
+                            <div class="user"><img src=@post.User.ProfilePicture></div>
+                                    <div class="input">
+                                        <form method="post" action="/Posts/Show/@post.Id">
+                                            <div class="input-group">
+                                                <input type="hidden" name="PostId" value="@post.Id" />
+                                                <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
+                                                <span class="input-group-btn p-l-10">
+                                                    <button class="btn btn-primary f-s-12 rounded-corner" type="submit">Comment</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>-->
+                            <!-- end timeline-body -->
+                        </div>
+                    </li>
+
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+    var modal1 = document.getElementById('id02');
+
+    window.onclick = function (event) {
+        if (event.target == modal1) {
+            modal1.style.display = "none";
+        }
+    }
+</script>

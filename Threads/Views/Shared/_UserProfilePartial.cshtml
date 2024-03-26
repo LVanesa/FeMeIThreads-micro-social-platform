@@ -1,0 +1,87 @@
+﻿<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link href="~/css/UserProfileStyleSheet.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>@ViewBag.Title</title>
+
+</head>
+
+@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="container">
+    
+    @if(Model.CoverPicture != null)
+    {
+        <img src="@Model.CoverPicture" alt="Cover Picture" style="height: 350px;width:100%;object-fit:cover">
+    }
+    else{
+    <img src="/images/coverDefault.png" alt="Cover Picture" style="height: 350px;width:100%;object-fit:cover">
+
+    }
+    <div class="card social-prof">
+        <div class="card-body">
+            <div class="wrapper">
+                <img src="@Model.ProfilePicture" alt="" class="user-profile" >
+                <h3>@Model.UserName</h3>
+                @if (Model.Biografie != null)
+                {  
+                    <p>@Model.Biografie</p>
+                }
+                else
+                {
+                    <p>&nbsp;</p>
+                }
+            </div>
+            <div class="row ">
+                <div class="col-lg-12">
+                    <ul class=" nav nav-tabs justify-content-center s-nav">
+                        @if(ViewBag.UserCurent == Model.Id || ViewBag.EsteAdmin == true || Model.Visibility==true || Model.Visibility ?? true)
+                        {
+
+                            <li>
+                                <a href="/Users/ShowPosts/@Model.Id" class=" @(ViewBag.ActiveTab == "Posts" ? "active show" : "")">POSTĂRI</a>
+                            </li>
+                            <li>
+                                <a href="/Users/ShowGroups/@Model.Id" class=" @(ViewBag.ActiveTab == "Groups" ? "active show" : "")">GRUPURI</a>
+                            </li>
+                        }
+
+
+                        @if (ViewBag.UserCurent == Model.Id || ViewBag.EsteAdmin == true)
+                        {
+                            <li>
+                                <a href="/Users/Edit/@Model.Id" class="  @(ViewBag.ActiveTab == "Edit" ? "active show" : "") "> EDITEAZĂ PROFIL </a>
+                            </li>
+                        }
+                       
+                        @if (ViewBag.UserCurent != Model.Id && Model.Visibility == false && ViewBag.Status != "accepted" && SignInManager.IsSignedIn(User) && ViewBag.EsteAdmin == false)
+                        {
+                            <li>
+                                <form method="post" action="/Users/@ViewBag.Action/@Model.Id">
+                                    <button class="button button req-but purple" style="background-color:#e56f32;color:#fff" type="submit"><i class="bi bi-send-plus"></i> @ViewBag.Button</button>
+                                </form>
+                            </li>
+                        }
+
+                        else if (ViewBag.UserCurent != Model.Id && Model.Visibility == false && ViewBag.Status == "accepted"  && SignInManager.IsSignedIn(User) && ViewBag.EsteAdmin == false)
+                        {
+                            <li>
+                                <a href="/Users/ShowPosts/@Model.Id" class=" @(ViewBag.ActiveTab == "Posts" ? "active show" : "")">POSTĂRI</a>
+                            </li>
+                            <li>
+                                <a href="/Users/ShowGroups/@Model.Id" class=" @(ViewBag.ActiveTab == "Groups" ? "active show" : "")">GRUPURI</a>
+                            </li>
+                        }
+                        
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

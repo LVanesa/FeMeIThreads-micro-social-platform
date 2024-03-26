@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Threads.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<script>
+    console.log('Following:', @Json.Serialize(ViewBag.Following));
+</script>
+
+<link href="~/css/UsersIndex.css" rel="stylesheet" />
+
+<br />
+<br />
+
+@if (ViewBag.Message != null)
+{
+    <h2 class="@ViewBag.Alert p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+}
+
+
+<div class="container">
+    <form method="GET">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control"
+                   placeholder="Caută persoane" name="search"
+                   value="@ViewBag.SearchString">
+            <button class="btn" style="height:100%; background-color:#5e6593;color:white;text-decoration:none;border:none"
+                    type="submit">
+                Search
+            </button>
+        </div>
+    </form>
+    @foreach (var user in ViewBag.Users)
+    {
+        bool ok = false;
+
+        <div class="member-entry align-items-center">
+            <a href="/Users/ShowPosts/@user.Id" class="member-img">
+                <img src="@user.ProfilePicture" class="img-rounded">
+            </a>
+            <div class="member-details col">
+                <a href="/Users/ShowPosts/@user.Id">@user.UserName</a> 
+                <div class="extra-info-list">
+                    @if(user.FirstName != null)
+                    {
+                        <div class="col-sm-4">
+                            <span>
+                                <i class="bi bi-person-vcard"></i>
+                                Prenume: <a href="#">@user.FirstName</a>
+                            </span>
+                        </div>
+                    }
+                    
+                    <div class="clear"></div>
+                    @if (user.LastName != null)
+                    {
+                        <div class="col-sm-4">
+                            <span>
+                                <i class="bi bi-person-vcard"></i>
+                                Nume: <a href="#">@user.LastName</a>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <a class="button button req-but" href="/Users/ShowPosts/@user.Id" style="background-color:#5e6593;color:#fff" type="submit"><i class="bi bi-person"></i> Vezi Profilul</a>
+        </div>
+    }
+
+</div>
